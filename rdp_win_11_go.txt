@@ -1,0 +1,12 @@
+wget -O win.iso "https://archive.org/download/windows.-xlite.-atomic.-11.v-1.-by.-fbconan/Windows.XLite.%27Atomic.11%27.v1.By.FBConan.iso"
+wget -O ngrok.tgz "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz"
+tar -xf ngrok.tgz
+./ngrok authtoken /your code ngrok/
+./ngrok tcp 5900
+sudo apt update
+sudo apt install qemu-kvm -y
+qemu-img create -f raw win.img 32G
+sudo qemu-system-x86_64 -m 9G -smp 4 -cpu host -boot order=c -drive file=win.iso,media=cdrom -drive file=win.img,format=raw -device usb-ehci,id=usb,bus=pci.0,addr=0x4 -device usb-tablet -vnc :0 -smp cores=2 -device e1000,netdev=n0 -netdev user,id=n0 -vga qxl
+after install
+./ngrok tcp 5900
+sudo qemu-system-x86_64 -m 9G -smp 4 -cpu host -boot order=c -drive file=win.img,format=raw -device usb-ehci,id=usb,bus=pci.0,addr=0x4 -device usb-tablet -vnc :0 -smp cores=2 -device e1000,netdev=n0 -netdev user,id=n0 -vga qxl
